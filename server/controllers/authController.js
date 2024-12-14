@@ -54,24 +54,28 @@ export const loginUser = async (req, res) => {
     try{
         const {userName, password} = req.body;
 
+        if (!userName || !password) {
+            return res.status(400).json({ success: false, error: 'Username and password are required' });
+        }        
+
         const user = await User.findOne({userName});
         if(!user){
-            return res.satus(404).json({success: false, error: 'Username Not Found'})
+            return res.status(404).json({success: false, error: 'Username Not Found'})
         }
 
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if(!isPasswordCorrect){
-            return res.satus(404).json({success: false, error: 'Incorrect Password'})
+            return res.status(404).json({success: false, error: 'Incorrect Password'})
         }
 
         generateTokenAndSetCookie(user._id, res);
 
         return res.status(200).json({
             success: true,
-            _id: newUser._id,
-            fullName: newUser.fullName,
-            userName: newUser.userName,
-            profilePic: newUser.profilePic,
+            _id: user._id,
+            fullName: user.fullName,
+            userName: user.userName,
+            profilePic: user.profilePic,
         })
 
     } catch(error){
