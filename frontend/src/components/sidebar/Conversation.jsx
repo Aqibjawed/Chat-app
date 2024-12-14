@@ -1,11 +1,18 @@
 import React from 'react'
 import useConversation from '../../zustand/useConversation'
 import { useSocketContext } from '../../context/SocketContext';
+import { useDisplayContext } from '../../context/DisplayContext';
 
 const Conversation = ({conversation, lastIdx, emoji}) => {
   const {selectedConversation, setSelectedConversation} = useConversation();
 
+  const {setSidebarVisibility} = useDisplayContext();
+
   const isSelected = selectedConversation?._id === conversation._id;
+  
+  if(isSelected){
+    setSidebarVisibility(false);
+  }
   const {onlineUsers} = useSocketContext();
   const isOnline = onlineUsers.includes(conversation._id);
 
