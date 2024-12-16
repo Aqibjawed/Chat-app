@@ -10,7 +10,7 @@ const Conversation = ({conversation, lastIdx, emoji}) => {
 
   const isSelected = selectedConversation?._id === conversation._id;
   
-  if(isSelected){
+  if(isSelected && window.innerWidth < 650){
     setSidebarVisibility(false);
   }
   const {onlineUsers} = useSocketContext();

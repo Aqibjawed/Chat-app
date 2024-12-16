@@ -11,26 +11,26 @@ const HomeSidebar = () => {
     const {sidebarVisibility, setSidebarVisibility} = useDisplayContext();
     const {selectedConversation} = useConversation();
 
-    const handleCloseSidebar = ()=> {
-      if(!selectedConversation){
-        toast.error('Please Select a Chat');
-      }
-      else{
-        setSidebarVisibility(false);
-      }
-    }
+    // const handleCloseSidebar = ()=> {
+    //   if(!selectedConversation){
+    //     toast.error('Please Select a Chat');
+    //   }
+    //   else{
+    //     setSidebarVisibility(false);
+    //   }
+    // }
   return (
     <div>
       {sidebarVisibility ? (
-        <div className='relative border-r border-slate-500 p-4 flex flex-col h-full'>
+        <div className='w-[350px] sm:w-[300px] relative border-r border-slate-500 p-4 flex flex-col h-full'>
           <SearchInput />
           <div className='divider px-3'></div>
           <Conversations />
           <div className='absolute inset-y-[92%] flex w-full justify-between pr-10'>
             <LogoutButton />
-            <button
+            {/* <button
               onClick={handleCloseSidebar}
-            ><MdClose className='w-6 h-6'/></button>
+            ><MdClose className='w-6 h-6'/></button> */}
           </div>
         </div>
       ) : ''}
